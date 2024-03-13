@@ -15,3 +15,5 @@ This folder contains the frontend implementation for the Theme Picker project. B
 ### Areas to improve:
 - Store the theme color on the server and make url shareble (http://theme-picker.com?theme=DD3456). Now logic is not complete
 - Better test coverage
+- Creating a class for handling fetch requests(ApiService) for better error handling, request configurations and etc.
+  
