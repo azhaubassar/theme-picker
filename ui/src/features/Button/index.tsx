@@ -1,3 +1,4 @@
+import React from "react";
 import { ActiveTab } from "../../shared/types";
 
 type ButtonProps = {

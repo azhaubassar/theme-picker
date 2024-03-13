@@ -2,20 +2,18 @@ import React from "react";
 import { render, fireEvent, waitFor, screen } from "@testing-library/react";
 import TypeaheadWidgetComponent from "./TypeaheadWidget";
 import "@testing-library/jest-dom";
-import { act } from "react-dom/test-utils";
+import { BASE_URL } from "../../shared/consts";
 
 describe("TypeaheadWidget component", () => {
   test("renders correctly", () => {
     render(<TypeaheadWidgetComponent activeTab={1} />);
-    const inputElement = screen.getByPlaceholderText("place");
+    const inputElement = screen.getByTestId("color-input");
     expect(inputElement).toBeInTheDocument();
   });
 
   test("changes text on input change", () => {
     render(<TypeaheadWidgetComponent activeTab={1} />);
-    const inputElement = screen.getByPlaceholderText(
-      "place"
-    ) as HTMLInputElement;
+    const inputElement = screen.getByTestId("color-input") as HTMLInputElement;
     fireEvent.change(inputElement, { target: { value: "New Text" } });
     expect(inputElement.value).toBe("New Text");
   });
@@ -28,7 +26,7 @@ describe("TypeaheadWidget component", () => {
     });
 
     render(<TypeaheadWidgetComponent activeTab={1} />);
-    const inputElement = screen.getByPlaceholderText("place");
+    const inputElement = screen.getByTestId("color-input");
     fireEvent.change(inputElement, { target: { value: "Red" } });
 
     await waitFor(
@@ -39,9 +37,7 @@ describe("TypeaheadWidget component", () => {
     );
 
     setTimeout(() => {
-      expect(global.fetch).toHaveBeenCalledWith(
-        "http://localhost:8080/colors?q=Red"
-      );
-    }, 500); //
+      expect(global.fetch).toHaveBeenCalledWith(`${BASE_URL}?q=Red`);
+    }, 500);
   });
 });

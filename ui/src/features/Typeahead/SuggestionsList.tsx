@@ -1,6 +1,7 @@
-import { observer } from "mobx-react";
+import React from "react";
 import store from "../../store";
 import { Color } from "../../shared/types";
+import { observer } from "mobx-react";
 
 type SuggectionsListProps = {
   suggestions: Color[];
@@ -9,7 +10,7 @@ type SuggectionsListProps = {
   cursor: number;
 };
 
-export const SuggestionsList = observer(
+const SuggestionsList = observer(
   ({
     suggestions,
     inputFocused,
@@ -33,7 +34,7 @@ export const SuggestionsList = observer(
         {suggestions.map((color, _i) => (
           <li
             key={color.name}
-            onClick={(e) => suggestionSelected(color.rgb)}
+            onClick={(e) => suggestionSelected(color.name)}
             style={{
               backgroundColor: cursor === _i ? store.color1 : "transparent",
             }}
@@ -45,3 +46,4 @@ export const SuggestionsList = observer(
     );
   }
 );
+export default SuggestionsList;

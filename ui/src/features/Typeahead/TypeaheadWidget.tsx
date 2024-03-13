@@ -2,8 +2,9 @@ import React, { useState, useEffect, useCallback, useMemo } from "react";
 import store from "../../store";
 import { ActiveTab, Color } from "../../shared/types";
 import { observer } from "mobx-react";
-import { SuggestionsList } from "./SuggestionsList";
+import SuggestionsList from "./SuggestionsList";
 import { debounce } from "../../shared/debounce";
+import { BASE_URL } from "../../shared/consts";
 
 export type TypeaheadWidgetProps = {
   activeTab: ActiveTab;
@@ -25,7 +26,7 @@ export const TypeaheadWidgetComponent = ({
   const sendRequest = useCallback(async (value: string) => {
     console.log(value);
 
-    const response = await fetch(`http://localhost:8080/colors?q=${value}`);
+    const response = await fetch(`${BASE_URL}?q=${value}`);
     if (response) {
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -49,6 +50,7 @@ export const TypeaheadWidgetComponent = ({
   };
 
   const suggestionSelected = (value: string) => {
+    console.log(value);
     setSuggestions([]);
     setText(value);
     if (activeTab === 1) {
@@ -78,7 +80,8 @@ export const TypeaheadWidgetComponent = ({
     <div className="typeahead-container">
       <input
         onChange={onTextChange}
-        placeholder={"place"}
+        placeholder={activeTab === 1 ? store.color1 : store.color2}
+        data-testid="color-input"
         value={text}
         type="text"
         onKeyDown={handleKey}

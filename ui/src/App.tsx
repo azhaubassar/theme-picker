@@ -21,16 +21,16 @@ const App = observer(() => {
     { title: "Set color #2", tabId: 2 },
   ];
 
-  useEffect(() => {
-    const colors: ColorsMapType = colorsJson;
-    const queryParams = new URLSearchParams(window.location.search);
-    console.log(queryParams);
-    let value: string | null = queryParams.get("theme");
-    value = `#${value}`;
-    if (value && colors[value]) {
-      store.color2 = colors[value];
-    }
-  }, []);
+  // useEffect(() => {
+  //   const colors: ColorsMapType = colorsJson;
+  //   const queryParams = new URLSearchParams(window.location.search);
+  //   console.log(queryParams);
+  //   let value: string | null = queryParams.get("theme");
+  //   value = `#${value}`;
+  //   if (value && colors[value]) {
+  //     store.color2 = colors[value];
+  //   }
+  // }, []);
 
   return (
     <div className="App">
